@@ -1,0 +1,14 @@
+{
+  "name": "tomato",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names \"AUTH,RESTAURANT,UTILS\" --prefix-colors \"bgRed.bold,bgGreen.bold,bgBlue.bold\" \"npm run dev --prefix auth\" \"npm run dev --prefix resturant\" \"npm run dev --prefix utils\"",
+    "dev:auth": "npm run dev --prefix auth",
+    "dev:resturant": "npm run dev --prefix resturant",
+    "dev:utils": "npm run dev --prefix utils"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

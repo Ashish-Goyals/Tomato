@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-export interface IUser {
-  _id: string;
-  name: string;
-  email: string;
-  image: string;
-  role: string;
+export interface IUser{
+    _id:string;
+    name:string;
+    email:string;
+    image:string;
+    role:string;
 }
 
 export interface AuthenticatedRequest extends Request {
@@ -39,8 +39,6 @@ export const isAuth = async (
   }
 };
 
-// BUG8 FIX: isSeller was missing from resturant's own middleware
-// route was importing it from ../../auth/middlewares which breaks service isolation
 export const isSeller = async (
   req: AuthenticatedRequest,
   res: Response,

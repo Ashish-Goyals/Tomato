@@ -4,8 +4,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import { publicRoutes, protectedRoutes } from "./routes";
 import Navbar from "./components/Navbar";
-
+import { useAppData } from "./context/AppContext.tsx";
+import Resturant from "./pages/Resturant";
 function App() {
+  const { user } = useAppData();
+
+  if (user && user.role === "seller") {
+    return <Resturant />;
+  }
   return (
     <>
       <BrowserRouter>
