@@ -19,26 +19,35 @@ export const isAuth = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
+    // console.log("Cookies:", req.cookies);
+
     const token = req.cookies.token;
+
     if (!token) {
-      res.status(401).json({ message: "Unauthorized access no token" });
+      res.status(401).json({
+        message: "Unauthorized access no token",
+        cookies: req.cookies,
+      });
       return;
     }
+
     const decoded = jwt.verify(
       token,
       process.env.SECRET_KEY as string,
     ) as JwtPayload;
-    if (!decoded || !decoded.user) {
-      res.status(401).json({ message: "Unauthorized access invalid token" });
-      return;
-    }
+
     req.user = decoded.user;
+
     next();
   } catch (error) {
-    res.status(401).json({ message: "Please Login - JWT error" });
+    console.log(error);
+
+    res.status(401).json({
+      message: "Please Login - JWT error",
+    });
+    return;
   }
 };
-
 // BUG8 FIX: isSeller was missing from resturant's own middleware
 // route was importing it from ../../auth/middlewares which breaks service isolation
 export const isSeller = async (
